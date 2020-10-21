@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Toutes les balises d'entête -->
+<head name="head">
+	<!-- Encodage de la page -->
+	<meta charset="utf-8" lang="fr"/>
+	<!-- Nom de la page -->
+	<title>Dom navigation</title>
+	<!-- Lien vers le fichier de style CSS -->
+	<link type="text/css" rel="stylesheet" href="../../CSS/style.css"/>
+	<!-- Code JavaScript de la page -->
+	<script src="../../JS/PremierScript.js"></script>
+	<!-- Image onglet  -->
+	<link rel="shortcut icon" type ="image/x-icon" href="../../images/decarboneNon.png"/>
+</head>
+<!--Contenu de le page-->
+<body>
+	<!-- Haut de la page -->
+	<header>
+	
+	</header>
+	
+	<!-- Corps de la page  -->
+	<blockquote>
+	<div id="div"></div>
+	</blockquote>
+	
+	<!-- Pas de la page  -->
+	<footer>
+	
+	</footer>
+<script>
+	<!-- date + checkBox: languages de prog from array + cursor -->
+	let maxI = 0;
+	document.getElementById("div").append(getButton("YO", 150, 100, 300));
+	let inter = setInterval(draw, 30);
+	
+	function draw()
+	{
+		let i = 0;
+		let but = document.getElementById(String(i));
+		while(i <= maxI)
+		{
+			if(but)
+			{
+				but.style.left = parseInt(but.style.left) + 1 + "px";
+			}
+			i++;
+			but = document.getElementById(String(i));
+		}
+	}
+	
+	function getButton(placeholder, min, x = 0, y = 0)
+	{
+		let but = document.createElement("button");
+		but.setAttribute("id", maxI);
+		but.innerHTML = placeholder;
+		but.style.minWidth = String(min)*1.61 + "px";
+		but.style.minHeight = String(min) + "px";
+		but.style.position = "absolute";
+		but.style.left =  String(x) + "px";
+		but.style.top =  String(y) + "px";
+		but.setAttribute("onclick", "remove(this)");
+		if(palindrome(placeholder))
+		{
+			but.style.color = "red";
+		}
+		else
+			but.style.color = "green",
+		console.log(but);
+		maxI++;
+		return but;
+	}
+	
+	function remove(o)
+	{
+		if(parseInt(o.style.minHeight) > 20)
+		{
+			let text = makeid(Math.random()*15);
+			let text2 = makeid(Math.random()*15);
+			o.parentNode.appendChild(getButton(text, 
+			parseInt(o.style.minHeight)/4*3, parseInt(o.style.left) - (parseInt(o.style.minHeight)/4*3)/2, parseInt(o.style.top) - (parseInt(o.style.minHeight)/4*3)/2));
+			o.parentNode.appendChild(getButton(text2, 
+			parseInt(o.style.minHeight)/4*3, parseInt(o.style.left) + (parseInt(o.style.minHeight)/4*3)/2, parseInt(o.style.top) + (parseInt(o.style.minHeight)/4*3)/2));
+		}
+		o.remove();
+	}
+	
+	function palindrome(text)
+	{
+		let pal = text + " : ";
+		let res = text.toUpperCase() == text.split("").reverse().join("").toUpperCase();
+		
+		if(res) return true;
+		else return false;
+	}
+	
+	function makeid(length) {
+	   var result           = '';
+	   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+	   var charactersLength = characters.length;
+	   for ( var i = 0; i < length; i++ ) {
+		  result += characters.charAt(Math.floor(Math.random() * charactersLength));
+	   }
+	   return result;
+	}
+</script>
+</body>
+</html>
