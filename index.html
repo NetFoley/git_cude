@@ -18,7 +18,7 @@
 <body>
 	<!-- Haut de la page -->
 	<header>
-	
+	<p id="average"></p>
 	</header>
 	
 	<!-- Corps de la page  -->
@@ -31,7 +31,8 @@
 	
 	</footer>
 <script>
-	<!-- date + checkBox: languages de prog from array + cursor -->
+	let deadI = 0;
+	let startTime = new Date().getTime();
 	let maxI = 0;
 	document.getElementById("div").append(getButton("YO", 150, 100, 300));
 	let inter = setInterval(draw, 30);
@@ -40,15 +41,25 @@
 	{
 		let i = 0;
 		let but = document.getElementById(String(i));
+		updateAverage();
+		let noOneFound = true;
 		while(i <= maxI)
 		{
 			if(but)
 			{
+				noOneFound = false;
 				but.style.left = parseInt(but.style.left) + 1 + "px";
 			}
 			i++;
 			but = document.getElementById(String(i));
 		}
+		if(noOneFound)
+			clearInterval(inter);
+	}
+	
+	function updateAverage()
+	{
+		document.getElementById("average").innerHTML = deadI / ((new Date().getTime() - startTime)/1000);
 	}
 	
 	function getButton(placeholder, min, x = 0, y = 0)
@@ -85,7 +96,9 @@
 			parseInt(o.style.minHeight)/4*3, parseInt(o.style.left) + (parseInt(o.style.minHeight)/4*3)/2, parseInt(o.style.top) + (parseInt(o.style.minHeight)/4*3)/2));
 		}
 		o.remove();
+		deadI++;
 	}
+	
 	
 	function palindrome(text)
 	{
