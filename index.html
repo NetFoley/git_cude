@@ -76,11 +76,16 @@ let words = ['a','ability','able','about','above','accept','according','account'
 	let maxI = 0;
 	let value = 1;
 	document.getElementById("div").append(getButton("yo", 150, 100, 300));
-	let inter = setInterval(draw, 30);
+	let inter = undefined;
 	init(1);
 	
 	function init(newValue)
 	{
+		if(inter != undefined)
+		{
+			clearInterval(inter)
+			inter = undefined;
+		}
 		value = newValue;
 		i = 0;
 		deadI = 0;
@@ -141,10 +146,14 @@ let words = ['a','ability','able','about','above','accept','according','account'
 	
 	function remove(o)
 	{
-		if(!inter)
-			inter = setInterval(draw, 30, value);
 		if(o.getAttribute("id") == "0")
-			startTime = new Date().getTime();
+		{
+			if(inter == undefined)
+			{
+				inter = setInterval(draw, 30);
+				startTime = new Date().getTime();
+			}
+		}
 		if(parseInt(o.style.minHeight) > 20)
 		{
 			let text = makeid();
