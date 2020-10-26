@@ -50,7 +50,12 @@
 </style>
 	<!-- Haut de la page -->
 	<header>
-	<input type="text" oninput="checkRemove(this, event)" onkeyup="checkRemove(this, event)">
+	<input type="text" onmousedown="checkRemove" oninput="checkRemove(this, event)" onkeyup="checkRemove(this, event)" style="
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;">
 	<input type="range" class="slider" onchange="init(this.value)" min = 1 max = 3>
 	<p id="average">0</p>
 	<p id="averageChars">0</p>
@@ -122,7 +127,8 @@ let words = ['a','ability','able','about','above','accept','according','account'
 		}
 		if(noOneFound)
 			clearInterval(inter);
-		combo -= 0.01;
+		if(combo > 0.01)
+			combo -= 0.01;
 		displayScore = displayScore + (score - displayScore)/25;
 	}
 	
@@ -194,7 +200,7 @@ let words = ['a','ability','able','about','above','accept','according','account'
 	function checkRemove(o, event)
 	{	
 		console.log(event);
-		if(event.key == "Backspace" || event.key == "Control")
+		if(event.key == "Backspace" || event.key == "Control" || event.inputType == "deleteContentBackward" || event.inputType == "deleteContentForward")
 			comboBreak();
 		for(let i = 0; i < maxI; i++)
 		{	
