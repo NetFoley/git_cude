@@ -52,7 +52,9 @@
 	<header>
 	<p id="average">0</p>
 	<p id="averageChars">0</p>
-	<input type="text" oninput="checkRemove(this)">
+	<p id="combo">0</p>
+	<p id="score">0</p>
+	<input type="text" onkeyup="checkRemove(this, event)">
 	<input type="range" class="slider" onchange="init(this.value)" min = 1 max = 3>
 	</header>
 	
@@ -70,11 +72,14 @@ let words = ['a','ability','able','about','above','accept','according','account'
 </script>
 <script>
 	let i = 0;
+	let displayScore = 0;
+	let score = 0;
 	let deadI = 0;
 	let deadIChars = 0;
 	let startTime = 1;
 	let maxI = 0;
 	let value = 1;
+	let combo = 0;
 	document.getElementById("div").append(getButton("yo", 150, 100, 300));
 	let inter = undefined;
 	init(1);
@@ -87,11 +92,15 @@ let words = ['a','ability','able','about','above','accept','according','account'
 			inter = undefined;
 		}
 		value = newValue;
+		displayScore = 0;
+		score = 0;
 		i = 0;
 		deadI = 0;
 		deadIChars = 0;
+		combo = 0;
 		startTime = new Date().getTime();
 		maxI = 0;
+		updateAverage();
 		document.getElementById("div").innerHTML = "";
 		document.getElementById("div").append(getButton("yo", 150, 100, 300));
 	}
@@ -114,12 +123,18 @@ let words = ['a','ability','able','about','above','accept','according','account'
 		}
 		if(noOneFound)
 			clearInterval(inter);
+		combo -= 0.01;
+		displayScore = displayScore + (score - displayScore)/25;
 	}
 	
 	function updateAverage()
 	{
 		document.getElementById("average").innerHTML = (deadI / ((new Date().getTime() - startTime)/1000)).toFixed(3) + " words / s";
 		document.getElementById("averageChars").innerHTML = (deadIChars / ((new Date().getTime() - startTime)/1000)).toFixed(3) + " character / s";
+		document.getElementById("combo").innerHTML = "COMBO: "  + combo.toFixed(1);
+		document.getElementById("combo").style.fontSize = 15 + combo + "px";
+		document.getElementById("score").innerHTML = "SCORE: "  + displayScore.toFixed(1);
+		document.getElementById("score").style.fontSize = 15 + displayScore/10 + "px";
 	}
 	
 	function getButton(placeholder, min, x = 0, y = 0)
@@ -146,6 +161,9 @@ let words = ['a','ability','able','about','above','accept','according','account'
 	
 	function remove(o)
 	{
+		comboUp(1 + o.innerHTML.length*0.2);
+		scoreAdd(1 + o.innerHTML.length*0.2 * combo);
+		console.log(combo);
 		if(o.getAttribute("id") == "0")
 		{
 			if(inter == undefined)
@@ -172,14 +190,14 @@ let words = ['a','ability','able','about','above','accept','according','account'
 		deadI++;
 	}
 	
-	function checkRemove(o)
+	function checkRemove(o, event)
 	{	
+		console.log(event);
+		if(event.key == "Backspace" || event.key == "Control")
+			comboBreak();
 		for(let i = 0; i < maxI; i++)
-		{
+		{	
 			let but = document.getElementById(String(i));
-			console.log(i);
-			console.log(but);
-			console.log(o);
 			if(but)
 			{
 				if(but.innerHTML == o.value)
@@ -189,6 +207,21 @@ let words = ['a','ability','able','about','above','accept','according','account'
 				}
 			}
 		}
+	}
+	
+	function comboBreak()
+	{
+		combo = 0;
+	}
+	
+	function comboUp(value = 1)
+	{
+		combo += value;
+	}
+	
+	function scoreAdd(value = 1)
+	{
+		score += value;
 	}
 	
 	function palindrome(text)
