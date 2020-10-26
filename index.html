@@ -50,12 +50,12 @@
 </style>
 	<!-- Haut de la page -->
 	<header>
+	<input type="text" oninput="checkRemove(this, event)" onkeyup="checkRemove(this, event)">
+	<input type="range" class="slider" onchange="init(this.value)" min = 1 max = 3>
 	<p id="average">0</p>
 	<p id="averageChars">0</p>
 	<p id="combo">0</p>
 	<p id="score">0</p>
-	<input type="text" oninput="checkRemove(this, event)" onkeyup="checkRemove(this, event)">
-	<input type="range" class="slider" onchange="init(this.value)" min = 1 max = 3>
 	</header>
 	
 	<!-- Corps de la page  -->
@@ -132,9 +132,9 @@ let words = ['a','ability','able','about','above','accept','according','account'
 		document.getElementById("average").innerHTML = (deadI / ((new Date().getTime() - startTime)/1000)).toFixed(3) + " words / s";
 		document.getElementById("averageChars").innerHTML = (deadIChars / ((new Date().getTime() - startTime)/1000)).toFixed(3) + " character / s";
 		document.getElementById("combo").innerHTML = "COMBO: "  + combo.toFixed(1);
-		document.getElementById("combo").style.fontSize = 15 + combo + "px";
+		document.getElementById("combo").style.fontSize = 20 + combo/2 + "px";
 		document.getElementById("score").innerHTML = "SCORE: "  + displayScore.toFixed(1);
-		document.getElementById("score").style.fontSize = 15 + displayScore/10 + "px";
+		document.getElementById("score").style.fontSize = 20 + displayScore/25 + "px";
 	}
 	
 	function getButton(placeholder, min, x = 0, y = 0)
