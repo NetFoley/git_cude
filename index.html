@@ -80,7 +80,6 @@ let words = ['a','ability','able','about','above','accept','according','account'
 	let maxI = 0;
 	let value = 1;
 	let combo = 0;
-	document.getElementById("div").append(getButton("yo", 150, 100, 300));
 	let inter = undefined;
 	init(1);
 	
@@ -102,7 +101,7 @@ let words = ['a','ability','able','about','above','accept','according','account'
 		maxI = 0;
 		updateAverage();
 		document.getElementById("div").innerHTML = "";
-		document.getElementById("div").append(getButton("yo", 150, 100, 300));
+		document.getElementById("div").append(getButton("explosion", 150, 100, 300));
 	}
 	
 	function draw()
@@ -129,8 +128,10 @@ let words = ['a','ability','able','about','above','accept','according','account'
 	
 	function updateAverage()
 	{
-		document.getElementById("average").innerHTML = (deadI / ((new Date().getTime() - startTime)/1000)).toFixed(3) + " words / s";
-		document.getElementById("averageChars").innerHTML = (deadIChars / ((new Date().getTime() - startTime)/1000)).toFixed(3) + " character / s";
+		let ws = (deadI / ((new Date().getTime() - startTime)/1000)).toFixed(2);
+		let cs = (deadIChars / ((new Date().getTime() - startTime)/1000)).toFixed(2);
+		document.getElementById("average").innerHTML = ws + " words/s (" + (ws*60).toFixed(0) + "/min)";
+		document.getElementById("averageChars").innerHTML = cs + " character/s(" + (cs*60).toFixed(0) + "/min)";
 		document.getElementById("combo").innerHTML = "COMBO: "  + combo.toFixed(1);
 		document.getElementById("combo").style.fontSize = 20 + combo/2 + "px";
 		document.getElementById("score").innerHTML = "SCORE: "  + displayScore.toFixed(1);
@@ -174,8 +175,8 @@ let words = ['a','ability','able','about','above','accept','according','account'
 		}
 		if(parseInt(o.style.minHeight) > 20)
 		{
-			let text = makeid();
-			let text2 = makeid();
+			let text = makeid(parseInt(o.style.minHeight)/10);
+			let text2 = makeid(parseInt(o.style.minHeight)/10);
 			o.parentNode.appendChild(getButton(text, 
 			parseInt(o.style.minHeight)/4*3, 
 			parseInt(o.style.left) - (parseInt(o.style.minHeight)/4*3)/2, 
@@ -233,8 +234,10 @@ let words = ['a','ability','able','about','above','accept','according','account'
 		else return false;
 	}
 	
-	function makeid() {
+	function makeid(l) {
 	   let result = words[parseInt(Math.random()*words.length)];
+	   while(result.length + l /2 < l || result.length - l/2 > l)
+			result = words[parseInt(Math.random()*words.length)];
 	   return result;
 	}
 </script>
