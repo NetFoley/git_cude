@@ -51,7 +51,7 @@
 	<!-- Haut de la page -->
 	<header>
 	<input type="text" oninput="checkRemove(this, event)" onkeydown="checkRemove(this, event)" onmousedown="checkRemove(this, event)">
-	<input type="range" class="slider" onchange="init(this.value)" min = 1 max = 10>
+	<input type="range" class="slider" onchange="init(this.value)" min = 1 max = 5>
 	<p id="average">0</p>
 	<p id="averageChars">0</p>
 	<p id="combo">0</p>
@@ -81,7 +81,8 @@ let words = ['a','ability','able','about','above','accept','according','account'
 	let value = 1;
 	let combo = 0;
 	let inter = undefined;
-	init(1);
+	init(document.getElementsByClassName("slider")[0].value);
+	
 	
 	function init(newValue)
 	{
@@ -101,7 +102,7 @@ let words = ['a','ability','able','about','above','accept','according','account'
 		maxI = 0;
 		updateAverage();
 		document.getElementById("div").innerHTML = "";
-		document.getElementById("div").append(getButton("explosion", 150, 100, 300));
+		document.getElementById("div").append(getButton("kaboom", 150, 100, 300));
 	}
 	
 	function draw()
@@ -146,22 +147,24 @@ let words = ['a','ability','able','about','above','accept','according','account'
 	
 	function collide(but1, but2)
 	{
-		if(parseInt(but1.style.left) + parseInt(but1.style.minWidth) > parseInt(but2.style.left) && parseInt(but1.style.left) < parseInt(but2.style.left) + parseInt(but2.style.minWidth)
-		&& parseInt(but1.style.top) +  parseInt(but1.style.minHeight) >parseInt(but2.style.top)  && parseInt(but1.style.top)  < parseInt(but2.style.top) + parseInt(but2.style.minHeight))
-		{
-			return true;
-		}
+		let dist = Math.abs(parseInt(but1.style.left) - parseInt(but2.style.left)) + Math.abs( parseInt(but1.style.top) -  parseInt(but2.style.top));
+		if(dist < parseInt(but1.style.minWidth) || dist < parseInt(but2.style.minWidth))
+			if(parseInt(but1.style.left) + parseInt(but1.style.minWidth) > parseInt(but2.style.left) 
+			&& parseInt(but1.style.left) < parseInt(but2.style.left) +     parseInt(but2.style.minWidth)
+			&& parseInt(but1.style.top) +  parseInt(but1.style.minHeight)> parseInt(but2.style.top)  
+			&& parseInt(but1.style.top)  < parseInt(but2.style.top) +      parseInt(but2.style.minHeight))
+			{
+				return true;
+			}
 		return false;
 	}
 	
 	function repel(but1, but2)
 	{
-		console.log(but1);
-		console.log(but2);
 		if(parseInt(but1.style.top) < parseInt(but1.style.minHeight))
 		{
 			but1.style.top = (parseInt(but1.style.top) + 1) + "px";
-		}
+		} 
 		else if(parseInt(but1.style.left) < parseInt(but1.style.minWidth))
 		{
 			but1.style.left = (parseInt(but1.style.left) + 1) + "px";
