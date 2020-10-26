@@ -50,12 +50,7 @@
 </style>
 	<!-- Haut de la page -->
 	<header>
-	<input type="text" onmousedown="checkRemove" oninput="checkRemove(this, event)" onkeyup="checkRemove(this, event)" style="
-        -webkit-user-select: none;
-        -webkit-touch-callout: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;">
+	<input type="text" oninput="checkRemove(this, event)" onkeydown="checkRemove(this, event)" onmousedown="checkRemove(this, event)">
 	<input type="range" class="slider" onchange="init(this.value)" min = 1 max = 3>
 	<p id="average">0</p>
 	<p id="averageChars">0</p>
@@ -170,7 +165,6 @@ let words = ['a','ability','able','about','above','accept','according','account'
 	{
 		comboUp(1 + o.innerHTML.length*0.2);
 		scoreAdd(1 + o.innerHTML.length*0.2 * combo);
-		console.log(combo);
 		if(o.getAttribute("id") == "0")
 		{
 			if(inter == undefined)
@@ -199,8 +193,7 @@ let words = ['a','ability','able','about','above','accept','according','account'
 	
 	function checkRemove(o, event)
 	{	
-		console.log(event);
-		if(event.key == "Backspace" || event.key == "Control" || event.inputType == "deleteContentBackward" || event.inputType == "deleteContentForward")
+		if(invalidKey(event))
 			comboBreak();
 		for(let i = 0; i < maxI; i++)
 		{	
@@ -214,6 +207,34 @@ let words = ['a','ability','able','about','above','accept','according','account'
 				}
 			}
 		}
+	}
+	
+	function invalidKey(event)
+	{
+	
+		console.log(event);
+			
+		let value = true;
+		
+		if(event.type=="keydown")
+		{
+			let t = "azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN";
+			for(let i = 0; i < t.length; i++)
+			{
+				if(t[i] == event.key)
+					value = false;
+			}
+		}
+		else if(event.type == "input")
+		{
+			return false;
+		}
+		
+		if(value == true)
+			console.log("bad input");
+		else
+			console.log("good input");
+		return value;
 	}
 	
 	function comboBreak()
