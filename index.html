@@ -8,7 +8,7 @@
 	<!-- Nom de la page -->
 	<title>Dom navigation</title>
 	<!-- Lien vers le fichier de style CSS -->
-	<link type="text/css" rel="stylesheet" href="style.css"/>
+	<link type="text/css" rel="stylesheet" href="../../CSS/style.css"/>
 	<!-- Code JavaScript de la page -->
 	<script src="../../JS/PremierScript.js"></script>
 	<!-- Image onglet  -->
@@ -212,11 +212,12 @@ let words = ['a','ability','able','about','above','accept','according','account'
 		let but = document.createElement("button");
 		but.setAttribute("id", maxI);
 		but.innerHTML = placeholder;
-		but.style.minWidth = String(min)*1.61 + "px";
+		but.style.minWidth = String(min) + "px";
 		but.style.minHeight = String(min) + "px";
 		but.style.position = "absolute";
 		but.style.left =  String(x) + "px";
 		but.style.top =  String(y) + "px";
+		but.style.borderRadius =  "100" + "%";
 		<!-- but.setAttribute("onclick", "remove(this)"); -->
 		if(palindrome(placeholder))
 		{
