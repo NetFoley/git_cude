@@ -249,6 +249,8 @@ let words = ['a','ability','able','about','above','accept','according','account'
 		{
 			let text = makeid(parseInt(o.style.minHeight)/10);
 			let text2 = makeid(parseInt(o.style.minHeight)/10);
+			while(text == text2)
+				text2 = makeid(parseInt(o.style.minHeight)/10);
 			o.parentNode.appendChild(getButton(text, 
 			parseInt(o.style.minHeight)/4*3, 
 			parseInt(o.style.left) - (parseInt(o.style.minHeight)/4*3)/3, 
