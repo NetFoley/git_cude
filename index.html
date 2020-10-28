@@ -220,12 +220,10 @@ let words = ['a','ability','able','about','above','accept','according','account'
 		but.style.borderRadius =  "100" + "%";
 		but.style.outline = "none";
 		but.style.backgroundColor = "#EEDFFF";
-		but.style.fontSize = "1em";
+		but.style.fontSize = String(0.5 + (min / (30 * Math.sqrt(placeholder.length)))) + "em";
 		<!-- but.setAttribute("onclick", "remove(this)"); -->
 		if(palindrome(placeholder))
-		{
 			but.style.color = "red";
-		}
 		else
 			but.style.color = "green",
 		console.log(but);
@@ -245,12 +243,12 @@ let words = ['a','ability','able','about','above','accept','according','account'
 				startTime = new Date().getTime();
 			}
 		}
-		if(parseInt(o.style.minHeight) > 40)
+		if(parseInt(o.style.minHeight) > 50)
 		{
-			let text = makeid(parseInt(o.style.minHeight)/10);
-			let text2 = makeid(parseInt(o.style.minHeight)/10);
+			let text = makeid(parseInt(o.style.minHeight)/15);
+			let text2 = makeid(parseInt(o.style.minHeight)/15);
 			while(text == text2)
-				text2 = makeid(parseInt(o.style.minHeight)/10);
+				text2 = makeid(parseInt(o.style.minHeight)/15);
 			o.parentNode.appendChild(getButton(text, 
 			parseInt(o.style.minHeight)/4*3, 
 			parseInt(o.style.left) - (parseInt(o.style.minHeight)/4*3)/3, 
@@ -337,7 +335,7 @@ let words = ['a','ability','able','about','above','accept','according','account'
 	
 	function makeid(l) {
 	   let result = words[parseInt(Math.random()*words.length)];
-	   while(result.length + l /2 < l || result.length - l/2 > l)
+	   while(result.length > l*(3/2) || result.length < l *(2/3))
 			result = words[parseInt(Math.random()*words.length)];
 	   return result;
 	}
