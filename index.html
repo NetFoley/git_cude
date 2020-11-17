@@ -103,7 +103,7 @@ let words = ['a','ability','able','about','above','accept','according','account'
 		maxI = 0;
 		updateAverage();
 		document.getElementById("div").innerHTML = "";
-		document.getElementById("div").append(getButton("kaboom", 280, 100, 350));
+		document.getElementById("div").append(getButton("kaboom", 280, 100, 50));
 	}
 	
 	function draw()
@@ -128,7 +128,7 @@ let words = ['a','ability','able','about','above','accept','according','account'
 					let but2 = document.getElementById(String(j));
 					if(but2)
 					{
-						if(collide(but, but2))
+						if(collide(but, but2) || parseInt(but.style.top) < 0)
 						{
 							repel(but, but2);
 						}
@@ -162,38 +162,35 @@ let words = ['a','ability','able','about','above','accept','according','account'
 	
 	function repel(but1, but2)
 	{
-		if(parseInt(but1.style.top)	 > 0)
+		if(parseInt(but1.style.top) - parseInt(but1.style.minHeight) < 0)
 		{
-			if(parseInt(but1.style.top) < parseInt(but1.style.minHeight))
+			but1.style.top = (parseInt(but1.style.top) + 1) + "px";
+		} 
+		else if(parseInt(but1.style.left) < parseInt(but1.style.minWidth))
+		{
+			but1.style.left = (parseInt(but1.style.left) + 1) + "px";
+		}
+		else
+		{
+			if(parseInt(but1.style.top) < parseInt(but2.style.top))
 			{
-				but1.style.top = (parseInt(but1.style.top) + 1) + "px";
-			} 
-			else if(parseInt(but1.style.left) < parseInt(but1.style.minWidth))
-			{
-				but1.style.left = (parseInt(but1.style.left) + 1) + "px";
+				but1.style.top = (parseInt(but1.style.top) - 1) + "px";
+				but2.style.top = (parseInt(but2.style.top) + 1) + "px";
 			}
 			else
 			{
-				if(parseInt(but1.style.top) < parseInt(but2.style.top))
-				{
-					but1.style.top = (parseInt(but1.style.top) - 1) + "px";
-					but2.style.top = (parseInt(but2.style.top) + 1) + "px";
-				}
-				else
-				{
-					but1.style.top = (parseInt(but1.style.top) + 1) + "px";
-					but2.style.top = (parseInt(but2.style.top) - 1) + "px";
-				}
-				if(parseInt(but1.style.left) < parseInt(but2.style.left))
-				{
-					but1.style.left = (parseInt(but1.style.left) + 1) + "px";
-					but2.style.left = (parseInt(but2.style.left) - 1) + "px";
-				}
-				else
-				{
-					but1.style.left = (parseInt(but1.style.left) - 1) + "px";
-					but2.style.left = (parseInt(but2.style.left) + 1) + "px";
-				}
+				but1.style.top = (parseInt(but1.style.top) + 1) + "px";
+				but2.style.top = (parseInt(but2.style.top) - 1) + "px";
+			}
+			if(parseInt(but1.style.left) < parseInt(but2.style.left))
+			{
+				but1.style.left = (parseInt(but1.style.left) + 1) + "px";
+				but2.style.left = (parseInt(but2.style.left) - 1) + "px";
+			}
+			else
+			{
+				but1.style.left = (parseInt(but1.style.left) - 1) + "px";
+				but2.style.left = (parseInt(but2.style.left) + 1) + "px";
 			}
 		}
 	}
