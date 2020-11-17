@@ -162,35 +162,38 @@ let words = ['a','ability','able','about','above','accept','according','account'
 	
 	function repel(but1, but2)
 	{
-		if(parseInt(but1.style.top) < parseInt(but1.style.minHeight))
+		if(parseInt(but1.style.top)	 > 0)
 		{
-			but1.style.top = (parseInt(but1.style.top) + 1) + "px";
-		} 
-		else if(parseInt(but1.style.left) < parseInt(but1.style.minWidth))
-		{
-			but1.style.left = (parseInt(but1.style.left) + 1) + "px";
-		}
-		else
-		{
-			if(parseInt(but1.style.top) < parseInt(but2.style.top))
-			{
-				but1.style.top = (parseInt(but1.style.top) - 1) + "px";
-				but2.style.top = (parseInt(but2.style.top) + 1) + "px";
-			}
-			else
+			if(parseInt(but1.style.top) < parseInt(but1.style.minHeight))
 			{
 				but1.style.top = (parseInt(but1.style.top) + 1) + "px";
-				but2.style.top = (parseInt(but2.style.top) - 1) + "px";
-			}
-			if(parseInt(but1.style.left) < parseInt(but2.style.left))
+			} 
+			else if(parseInt(but1.style.left) < parseInt(but1.style.minWidth))
 			{
 				but1.style.left = (parseInt(but1.style.left) + 1) + "px";
-				but2.style.left = (parseInt(but2.style.left) - 1) + "px";
 			}
 			else
 			{
-				but1.style.left = (parseInt(but1.style.left) - 1) + "px";
-				but2.style.left = (parseInt(but2.style.left) + 1) + "px";
+				if(parseInt(but1.style.top) < parseInt(but2.style.top))
+				{
+					but1.style.top = (parseInt(but1.style.top) - 1) + "px";
+					but2.style.top = (parseInt(but2.style.top) + 1) + "px";
+				}
+				else
+				{
+					but1.style.top = (parseInt(but1.style.top) + 1) + "px";
+					but2.style.top = (parseInt(but2.style.top) - 1) + "px";
+				}
+				if(parseInt(but1.style.left) < parseInt(but2.style.left))
+				{
+					but1.style.left = (parseInt(but1.style.left) + 1) + "px";
+					but2.style.left = (parseInt(but2.style.left) - 1) + "px";
+				}
+				else
+				{
+					but1.style.left = (parseInt(but1.style.left) - 1) + "px";
+					but2.style.left = (parseInt(but2.style.left) + 1) + "px";
+				}
 			}
 		}
 	}
@@ -272,7 +275,7 @@ let words = ['a','ability','able','about','above','accept','according','account'
 			let but = document.getElementById(String(i));
 			if(but)
 			{
-				if(but.innerHTML == o.value)
+				if(but.innerHTML.toLowerCase() == o.value.toLowerCase())
 				{
 					o.value = "";
 					remove(but);
